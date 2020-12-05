@@ -72,5 +72,4 @@ for doc in doc_list:
 		num_valid += 1
 		#print("Valid!")
 
-#print(f'There are {num_valid} passports in the queue') #invalid syntax wtf
-print(num_valid)
+print(f'There are {num_valid} valid "passports" in the queue')
