@@ -17,6 +17,7 @@ def main(input_file):
 
 	while touched[ic] is None:
 		touched[ic] = ic
+		print(f"ic: {ic:>3} {insts[ic][:-1]}") 
 
 		if 	 insts[ic][:3] == "acc":
 			accumulator += int(insts[ic][4:])
