@@ -58,27 +58,27 @@ def validate(doc):
 			break
 
 		elif field == "byr":
-			if int(val.group(0)) < 1920 or int(val.group(0)) > 2002:
+			if int(val.group(1)) < 1920 or int(val.group(1)) > 2002:
 				isValid = False
 				break
 
 		elif field == "iyr":
-			if int(val.group(0)) < 2010 or int(val.group(0)) > 2020:
+			if int(val.group(1)) < 2010 or int(val.group(1)) > 2020:
 				isValid = False
 				break
 
 		elif field == "eyr":
-			if int(val.group(0)) < 2020 or int(val.group(0)) > 2030:
+			if int(val.group(1)) < 2020 or int(val.group(1)) > 2030:
 				isValid = False
 				break
 
 		elif field == "hgt":
-			if 	 val.group(1) == 'in':
-				if int(val.group(0)) < 59 or int(val.group(0)) > 76:
+			if 	 val.group(2) == 'in':
+				if int(val.group(1)) < 59 or int(val.group(1)) > 76:
 					isValid = False
 					break
-			elif val.group(1) == 'cm':
-				if int(val.group(0)) < 150 or int(val.group(0)) > 193:
+			elif val.group(2) == 'cm':
+				if int(val.group(1)) < 150 or int(val.group(1)) > 193:
 					isValid = False
 					break
 
@@ -136,5 +136,6 @@ for doc in doc_list:
 	if validate(doc):
 		num_valid += 1
 		print(f"Valid!  {doc}")
+		#print(doc['pid'])
 
 print(f'There are {num_valid} valid "passports" in the queue')
