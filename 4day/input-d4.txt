@@ -1,4 +1,4 @@
-yr:2010 ecl:gry hgt:181cm
+iyr:2010 ecl:gry hgt:181cm
 pid:591597745 byr:1920 hcl:#6b5442 eyr:2029 cid:123
 
 cid:223 byr:1927
@@ -1157,3 +1157,4 @@ ecl:gry
 eyr:2030 hcl:#1976b0
 cid:127 pid:701862616
 hgt:161cm
+

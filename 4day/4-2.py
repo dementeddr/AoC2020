@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import sys
 import re
@@ -28,11 +28,11 @@ def create_empty_doc():
 		"byr":None,
 		"iyr":None,
 		"eyr":None,
-		"hgt":None,
 		"hcl":None,
 		"ecl":None,
 		"pid":None,
 		"cid":None,
+		"hgt":None,
 	}
 
 
@@ -78,7 +78,7 @@ def validate(doc):
 					isValid = False
 					break
 			elif val.group(1) == 'cm':
-				if int(val.group(0))[0] < 150 or int(val.group(0))[0] > 193:
+				if int(val.group(0)) < 150 or int(val.group(0)) > 193:
 					isValid = False
 					break
 
@@ -135,6 +135,6 @@ for doc in doc_list:
 
 	if validate(doc):
 		num_valid += 1
-		print(f"Valid!  {doc['hgt']}")
+		print(f"Valid!  {doc}")
 
 print(f'There are {num_valid} valid "passports" in the queue')
