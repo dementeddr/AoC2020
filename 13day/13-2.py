@@ -2,27 +2,20 @@
 
 import sys
 import math
+from functools import reduce
 
 day = 13 #Advent of Code day
 
 
-def criteria_check(sched, sched_s, timestamp):
-	for bus in sched_s:
-		if (timestamp + sched[bus]) % bus != 0:
-			return False
-
-	return True
-
 
 def main(input_file):
 
-	departure = 0
 	buses = []
 	sched = {}
 	xs = 0
 
 	with open(input_file, "r") as fp:
-		departure = int(fp.readline())
+		fp.readline()
 		buses = fp.readline().split(',')
 
 	for bus in buses:
@@ -38,29 +31,20 @@ def main(input_file):
 	print(sched)
 	
 	sched_s = sorted(sched.keys())
-	sched_s.reverse()
-	min1 = sched_s[0]
-	min2 = sched_s[1]
 
-	iteration = 1
+	upper_bound = reduce(lambda a, b: a*b, sched_s)
+	print(upper_bound)
+
 	interval = 1
-	upper_bound = 1
+	timestamp = 1
 
 	for bus in sched_s:
-		diff = bus- (bus - sched[bus])
-		interval = abs(diff * interval) // math.gcd(interval, diff)
-		upper_bound *= bus
-		print(interval)
+		 while (timestamp + sched[bus]) % bus != 0:
+		 	timestamp += interval
 
-	timestamp = interval
+		 interval *= bus
 
-	while timestamp < upper_bound:
-		print(timestamp)
-		if criteria_check(sched, sched_s, timestamp):
-			break
-		else:
-			timestamp += interval
-
+	timestamp += 1 #I don't know why.
 
 	print(f"You'll have to wait until {timestamp} to catch the right bus.")
 	
