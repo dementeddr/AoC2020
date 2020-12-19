@@ -31,7 +31,7 @@ def check_around(pocket, coords=[10,10,10,10]):
 					#print(f"{z:>2} {y:>2} {x:>2}  +  {coords[2]} {coords[1]} {coords[0]}  =  {coords[2]+z:>2} {coords[1]+y:>2} {coords[0]+x:>2}")
 					unwrap += pocket[coords[3]+z][coords[2]+y][coords[1]+x][coords[0]+w]
 				
-	unwrap = unwrap[:39] + unwrap[40:] #Exclude the central point
+	unwrap = unwrap[:40] + unwrap[41:] #Exclude the central point
 	return unwrap.count('#') + unwrap.count('V')
 	
 
