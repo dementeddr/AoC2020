@@ -2,12 +2,11 @@
 
 import sys
 
-day = "" #Advent of Code day
+day = $$ #Advent of Code day
 
 def main(input_file):
 
 	with open(input_file, "r") as fp:
-		#parse input here
 
 
 

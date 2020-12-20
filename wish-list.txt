@@ -1,0 +1,5 @@
+- library func for reading input
+x method to pull input from site
+- some common methods/objects in library
+- more robust script to generate day folders
+
