@@ -62,7 +62,7 @@ def main(input_file):
 	#for g in sorted(rules.keys()):
 	#	print(f"{g:>3}: {rules[g]}")
 
-	charm = magic(grammars, rules, 0)
+	charm = r"^" + magic(grammars, rules, 0) + r"$"
 	pattern = re.compile(charm)
 	print('='*60)
 	print(charm)
