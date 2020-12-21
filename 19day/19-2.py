@@ -59,8 +59,8 @@ def main(input_file):
 		if '"' in text:
 			grammars[num] = text[1]
 
-	#for g in sorted(rules.keys()):
-	#	print(f"{g:>3}: {rules[g]}")
+	for g in sorted(rules.keys()):
+		print(f"{g:>3}: {rules[g]}")
 
 	charm = r"^" + magic(grammars, rules, 0) + r"$"
 	pattern = re.compile(charm)
@@ -70,9 +70,8 @@ def main(input_file):
 		if pattern.match(ba) is not None:
 			count += 1
 			#print(f"Match! {ba}  {pattern.match(ba).groups()}")
-		else:
+		#else:
 			#print(f"NoMa   {ba}")
-			pass
 	
 	print(f"The number of matching patterns is {count}")
 
