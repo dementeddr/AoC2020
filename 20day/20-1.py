@@ -36,8 +36,6 @@ def main(input_file):
 			total *= t
 
 	print(corner_pieces)
-
-
 	print(f"The product of the ids of all the corner pieces is {total}")
 
 
