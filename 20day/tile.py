@@ -22,7 +22,6 @@ class Tile():
 
 
 	def find_edge(self, target_edge):
-		#print(f"Checking edges {self.edges}")
 		for i in range(len(self.edges)):
 			if self.edges[i] == target_edge:
 				return i
@@ -44,8 +43,6 @@ class Tile():
 	# clocks = num rotations clockwise
 	def rotate(self, clocks=1):
 
-		#print(f"\tRotating {clocks} times")
-
 		for r in range(clocks):
 			N = self.edges.pop(3)
 			Nf = self.edges.pop(3)
@@ -58,12 +55,10 @@ class Tile():
 
 
 	def orient(self, index, target=3):
-		#print(f"\tOrienting {index} => {target}")	
 		true_index = 7 - index
 		index1 = index
 		if (true_index > 3) != (target > 3):
 			true_index = self.flip(true_index)
-			#print(f"\tFlipping {index1} => {index}")
 
 		if true_index != target:
 			self.rotate(((4-true_index) + target) % 4)
@@ -105,4 +100,4 @@ class Tile():
 
 
 	def __str__(self):
-		return '|' + '\n|'.join(self.data)
+		return '|' + '\n|'.join(self.data) #The pipes are to prevent the output from being interpreted as comments when I pipe it to vim
