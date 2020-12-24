@@ -14,7 +14,7 @@ def magic(grammars, rules, gram):
 	spread = rules[gram].split()
 	regex = r''
 	if '|' in spread:
-		regex = r"("
+		regex = r"(?:"
 
 	for s in spread:
 		if s == '|':
@@ -29,7 +29,6 @@ def magic(grammars, rules, gram):
 
 	grammars[gram] = regex
 
-	#print(regex)
 	return regex
 
 			
@@ -59,19 +58,45 @@ def main(input_file):
 		if '"' in text:
 			grammars[num] = text[1]
 
-	for g in sorted(rules.keys()):
-		print(f"{g:>3}: {rules[g]}")
 
-	charm = r"^" + magic(grammars, rules, 0) + r"$"
-	pattern = re.compile(charm)
+	charm0 = "^" + magic(grammars, rules, 0) + "$"
+	scroll0 = re.compile(charm0)
+	
+	charm31 = magic(grammars, rules, 31)
+	charm42 = magic(grammars, rules, 42)
+	
+	scroll11 = r"^" + charm42 + r"+" + charm31 + r"+$"
+	scroll11 = re.compile(scroll11)
+	
+	scroll31 = re.compile(charm31)
+	scroll42 = re.compile(charm42)
 	count = 0
-
+	
 	for ba in abba:
-		if pattern.match(ba) is not None:
+
+		baab = [ba[i:i+8] for i in range(0, len(ba), 8)]
+
+		c31 = 0
+		c42 = 0
+		end42 = False
+
+		for ab in baab:
+
+			if not end42:
+				if scroll42.fullmatch(ab) is not None:
+					c42 += 1
+				else:
+					end42 = True
+			
+			if end42:
+				if scroll31.fullmatch(ab) is not None:
+					c31 += 1
+				else:
+					break
+
+		if c42 > c31 and c31 > 0 and c42 + c31 == len(baab):
 			count += 1
-			#print(f"Match! {ba}  {pattern.match(ba).groups()}")
-		#else:
-			#print(f"NoMa   {ba}")
+			continue
 	
 	print(f"The number of matching patterns is {count}")
 
