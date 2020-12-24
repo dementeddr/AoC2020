@@ -2,4 +2,4 @@
 x method to pull input from site
 - some common methods/objects in library
 - more robust script to generate day folders
-
+- built-in way to measure execution time
