@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import sys
+import hexgrid
 
 day = 24 #Advent of Code day
 
