@@ -25,11 +25,76 @@ class HexGrid():
 		return key
 
 
+		
+	def mv_adj(self, key, direction):
 
-	def __init__(self, default=None):
+		key = HexGrid.validate_key(key)
 
-		self.grid = {(0,0,0):default}
-		self.default = default
+		if direction not in HexGrid.dirs:
+			raise ValueError(f"'{direction}' is not a valid hex direction")
+
+		d = HexGrid.dirs[direction]
+		
+		return tuple(map(lambda c: d[c] + key[c], range(3)))
+
+
+
+	def adj_keys(self, key):
+
+		key = HexGrid.validate_key(key)
+		ret = []
+
+		for d in HexGrid.dirs:
+			ret.append(self.mv_adj(key, d))
+
+		return ret
+
+
+
+	def count(self, value):
+
+		return len(tuple(filter(lambda v: v==value, self.grid.values())))
+
+
+
+	def is_real(self, key):
+
+		key = HexGrid.validate_key(key)
+		return key in self.grid
+
+
+
+	def flip(self, key, v1, v2):
+
+		key = HexGrid.validate_key(key)
+
+		#if key not in self.grid:
+		#	self[key] = self.default
+
+		if   self[key] == v1:
+			self[key] = v2
+			return v2
+
+		elif self[key] == v2:
+			self[key] = v1
+			return v1
+
+		else:
+			raise ValueError(f"Value at HexGrid[{key}] is {self.grid[key]}, not {v1} or {v2}")
+
+
+
+	def get_adj(self, key, direction):
+	
+		return self.grid[self.mv_adj(key, direction)]
+
+
+	
+	def count_adj(self, key, value):
+
+		key = HexGrid.validate_key(key)
+
+		return len(tuple(filter(lambda d: self[d] == value, self.adj_keys(key))))	
 
 
 
@@ -47,64 +112,23 @@ class HexGrid():
 	def __setitem__(self, key, value):
 
 		key = HexGrid.validate_key(key)
-		ret = self.default
-
-		if key in self.grid:
-			ret = self.grid[key]
-
 		self.grid[key] = value
 
-		return ret
+		for d in self.adj_keys(key):
+			if d not in self.grid:
+				self.grid[d] = self.default
 
 
 
-	def is_real(self, key):
+	def __iter__(self):
 
-		key = HexGrid.validate_key(key)
-		return key in self.grid
-
-
-
-	def flip(self, key, v1, v2):
-
-		key = HexGrid.validate_key(key)
-
-		if key not in self.grid:
-			self.grid[key] = self.default
-
-		if   self.grid[key] == v1:
-			self.grid[key] = v2
-			return v2
-
-		elif self.grid[key] == v2:
-			self.grid[key] = v1
-			return v1
-
-		else:
-			raise ValueError(f"Value at HexGrid[{key}] is {self.grid[key]}, not {v1} or {v2}")
-
-
-		
-	def mv_adj(self, key, direction):
-
-		key = HexGrid.validate_key(key)
-
-		if direction not in HexGrid.dirs:
-			raise ValueError(f"'{direction}' is not a valid hex direction")
-
-		d = HexGrid.dirs[direction]
-		
-		return tuple(map(lambda c: d[c] + key[c], range(3)))
+		return self.grid.__iter__()
 
 
 
-	def get_adj(self, key, direction):
-	
-		return self.grid[self.mv_adj(key, direction)]
+	def __init__(self, default=None):
+
+		self.grid = {(0,0,0):default}
+		self.default = default
 
 
-
-	def count(self, value):
-
-		return len(tuple(filter(lambda v: v==value, self.grid.values())))
-	
