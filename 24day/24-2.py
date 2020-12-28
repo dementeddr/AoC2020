@@ -35,9 +35,14 @@ def main(input_file):
 
 		for h in sorted(floor):
 
-			if   (floor[h] == 'B' and floor.count_adj(h, 'B') not in (1,2)) \
-				or (floor[h] == 'W' and floor.count_adj(h, 'B') == 2):
+			count = floor.count_adj(h, 'B')
+
+			if   (floor[h] == 'B' and count not in (1,2)) or (floor[h] == 'W' and count == 2):
 				flippers.append(h)
+
+			elif floor[h] != 'B' and count == 0:
+				floor.pop(h)
+
 
 		for f in flippers:
 			floor.flip(f, 'B', 'W')

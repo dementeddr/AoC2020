@@ -97,6 +97,14 @@ class HexGrid():
 		return len(tuple(filter(lambda d: self[d] == value, self.adj_keys(key))))	
 
 
+	
+	def pop(self, key):
+		
+		key = HexGrid.validate_key(key)
+
+		self.grid.pop(key)
+
+
 
 	def __getitem__(self, key):
 
