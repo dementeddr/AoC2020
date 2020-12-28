@@ -35,7 +35,7 @@ class HexGrid():
 
 	def __getitem__(self, key):
 
-		key = validate_key(key)
+		key = HexGrid.validate_key(key)
 
 		if key in self.grid:
 			return self.grid[key]
@@ -46,7 +46,7 @@ class HexGrid():
 
 	def __setitem__(self, key, value):
 
-		key = validate_key(key)
+		key = HexGrid.validate_key(key)
 		ret = self.default
 
 		if key in self.grid:
@@ -60,22 +60,26 @@ class HexGrid():
 
 	def is_real(self, key):
 
-		key = validate_key(key)
+		key = HexGrid.validate_key(key)
 		return key in self.grid
 
 
 
 	def flip(self, key, v1, v2):
 
-		key = validate_key(key)
+		key = HexGrid.validate_key(key)
 
 		if key not in self.grid:
 			self.grid[key] = self.default
 
 		if   self.grid[key] == v1:
 			self.grid[key] = v2
+			return v2
+
 		elif self.grid[key] == v2:
-			self.grid[key] = v1:
+			self.grid[key] = v1
+			return v1
+
 		else:
 			raise ValueError(f"Value at HexGrid[{key}] is {self.grid[key]}, not {v1} or {v2}")
 
@@ -83,7 +87,7 @@ class HexGrid():
 		
 	def mv_adj(self, key, direction):
 
-		key = validate_key(key)
+		key = HexGrid.validate_key(key)
 
 		if direction not in HexGrid.dirs:
 			raise ValueError(f"'{direction}' is not a valid hex direction")
@@ -102,5 +106,5 @@ class HexGrid():
 
 	def count(self, value):
 
-		return len(filter(lambda v: v==value, self.grid.values()))
+		return len(tuple(filter(lambda v: v==value, self.grid.values())))
 	
